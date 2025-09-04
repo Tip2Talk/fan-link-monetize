@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Tip2Talk Design System - Professional Creator Economy Platform
 All colors MUST be HSL.
 */
 
@@ -17,24 +17,49 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary brand gradient - Purple to Blue */
+    --primary: 259 100% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 267 83% 80%;
+    
+    /* Secondary brand colors */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Creator accent colors */
+    --creator: 282 85% 60%;
+    --creator-foreground: 0 0% 100%;
+    --fan: 195 100% 65%;
+    --fan-foreground: 0 0% 100%;
+
+    /* Success colors for tips/payments */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --success-glow: 142 76% 60%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 259 100% 65%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 259 100% 65%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(282 85% 60%), hsl(259 100% 65%));
+    --gradient-creator: linear-gradient(135deg, hsl(282 85% 60%), hsl(195 100% 65%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 60%));
+    --gradient-background: linear-gradient(180deg, hsl(0 0% 100%), hsl(220 14% 98%));
+
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
+    --shadow-card: 0 4px 20px hsl(222.2 84% 4.9% / 0.08);
+    --shadow-button: 0 2px 8px hsl(var(--primary) / 0.3);
 
     --radius: 0.5rem;
 
