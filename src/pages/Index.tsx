@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CreatorProfile } from "@/components/CreatorProfile";
 import { CreatorOnboarding } from "@/components/CreatorOnboarding";
-import heroImage from "@/assets/hero-image.jpg";
+import heroImage from "@/assets/hero-banner.jpg";
 import { 
   DollarSign, 
   MessageCircle, 
