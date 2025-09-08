@@ -57,9 +57,8 @@ const Index = () => {
             Professional Creator Platform
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-            Monetize Your
             <span className="block bg-gradient-creator bg-clip-text text-transparent">
-              Million Fans
+              INSTANTLY MONETIZE YOUR FANS & FOLLOWERS
             </span>
           </h1>
           <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto leading-relaxed">
