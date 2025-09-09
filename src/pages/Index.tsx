@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { CreatorProfile } from "@/components/CreatorProfile";
 import { CreatorOnboarding } from "@/components/CreatorOnboarding";
 import heroImage from "@/assets/homepage-banner.jpg";
@@ -12,12 +13,15 @@ import {
   Star,
   Users,
   TrendingUp,
-  Smartphone
+  Smartphone,
+  ArrowRight,
+  Globe
 } from "lucide-react";
 import { useState } from "react";
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<'landing' | 'profile' | 'onboarding'>('landing');
+  const [usernameInput, setUsernameInput] = useState('');
 
   // Mock creator data
   const mockCreator = {
@@ -101,6 +105,90 @@ const Index = () => {
               <div className="text-sm opacity-80">Creator Earnings</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Vanity URL Creator Section */}
+      <div className="bg-background border-b">
+        <div className="max-w-4xl mx-auto px-6 py-12">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              Claim Your Creator URL
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Get your personalized link and start earning instantly
+            </p>
+          </div>
+
+          <Card className="max-w-2xl mx-auto shadow-glow border-2 border-primary/20">
+            <CardContent className="p-6 md:p-8">
+              <div className="space-y-6">
+                {/* URL Preview */}
+                <div className="bg-muted/50 rounded-lg p-4 border-2 border-dashed border-primary/30">
+                  <div className="flex items-center gap-2 text-sm md:text-base font-mono">
+                    <Globe className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground">www.tip2talk.com/</span>
+                    <span className="text-primary font-semibold">
+                      {usernameInput || 'yourusername'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Username Input */}
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Choose your username</label>
+                  <div className="flex gap-3">
+                    <Input
+                      placeholder="yourusername"
+                      value={usernameInput}
+                      onChange={(e) => setUsernameInput(e.target.value.toLowerCase().replace(/[^a-z0-9]/g, ''))}
+                      className="flex-1 text-center md:text-left font-mono text-lg"
+                      maxLength={20}
+                    />
+                    <Button 
+                      onClick={() => setCurrentView('onboarding')}
+                      disabled={!usernameInput || usernameInput.length < 3}
+                      className="px-6 md:px-8"
+                    >
+                      <span className="hidden md:inline">Claim URL</span>
+                      <ArrowRight className="w-4 h-4 md:ml-2" />
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Minimum 3 characters, letters and numbers only
+                  </p>
+                </div>
+
+                {/* Features Preview */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t">
+                  <div className="text-center">
+                    <div className="w-8 h-8 mx-auto mb-2 rounded-lg bg-success/10 flex items-center justify-center">
+                      <DollarSign className="w-4 h-4 text-success" />
+                    </div>
+                    <div className="text-xs font-medium">Tips</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-8 h-8 mx-auto mb-2 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <MessageCircle className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="text-xs font-medium">Chat</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-8 h-8 mx-auto mb-2 rounded-lg bg-creator/10 flex items-center justify-center">
+                      <Video className="w-4 h-4 text-creator" />
+                    </div>
+                    <div className="text-xs font-medium">Calls</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-8 h-8 mx-auto mb-2 rounded-lg bg-fan/10 flex items-center justify-center">
+                      <Lock className="w-4 h-4 text-fan" />
+                    </div>
+                    <div className="text-xs font-medium">Content</div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
