@@ -17,6 +17,7 @@ import {
   Calendar,
   Bell
 } from "lucide-react";
+import CreatorChatManager from "@/components/Chat/CreatorChatManager";
 
 const mockData = {
   creator: {
@@ -164,8 +165,9 @@ export default function CreatorDashboard() {
 
         {/* Main Content */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="chat">Chat</TabsTrigger>
             <TabsTrigger value="earnings">Earnings</TabsTrigger>
             <TabsTrigger value="fans">Fans</TabsTrigger>
             <TabsTrigger value="content">Content</TabsTrigger>
@@ -247,6 +249,13 @@ export default function CreatorDashboard() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="chat" className="space-y-6">
+            <CreatorChatManager 
+              creatorId="1" 
+              creatorProfile={mockData.creator}
+            />
           </TabsContent>
 
           <TabsContent value="earnings">
