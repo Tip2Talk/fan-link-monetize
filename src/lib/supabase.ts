@@ -38,6 +38,9 @@ export type Message = {
   content: string
   message_type: 'text' | 'tip' | 'media'
   tip_amount?: number
+  media_url?: string
+  media_type?: string
+  media_price?: number
   read_at?: string
   created_at: string
   sender?: Profile
