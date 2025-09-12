@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import MediaUpload from './MediaUpload';
+import PaymentModal from './PaymentModal';
 
 interface MessageThreadProps {
   conversationId: string;
@@ -42,6 +43,12 @@ export default function MessageThread({
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
   const [playingAudio, setPlayingAudio] = useState<string | null>(null);
   const [purchasedMedia, setPurchasedMedia] = useState<Set<string>>(new Set());
+  const [paymentModal, setPaymentModal] = useState<{
+    isOpen: boolean;
+    messageId: string;
+    amount: number;
+    description: string;
+  }>({ isOpen: false, messageId: '', amount: 0, description: '' });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const audioRefs = useRef<{ [key: string]: HTMLAudioElement }>({});
   const { toast } = useToast();
@@ -175,23 +182,18 @@ export default function MessageThread({
     }
   };
 
-  const handlePurchaseMedia = async (messageId: string, price: number) => {
-    try {
-      // In a real app, this would integrate with Stripe
-      // For now, we'll just mark it as purchased
-      setPurchasedMedia(prev => new Set([...prev, messageId]));
-      
-      toast({
-        title: "Media purchased",
-        description: `$${price} charged - media unlocked`,
-      });
-    } catch (error: any) {
-      toast({
-        title: "Purchase failed",
-        description: "Failed to purchase media",
-        variant: "destructive",
-      });
-    }
+  const handlePurchaseMedia = (messageId: string, price: number) => {
+    setPaymentModal({
+      isOpen: true,
+      messageId,
+      amount: price,
+      description: `Unlock exclusive ${messages.find(m => m.id === messageId)?.media_type} content`
+    });
+  };
+
+  const handlePaymentSuccess = () => {
+    setPurchasedMedia(prev => new Set([...prev, paymentModal.messageId]));
+    setPaymentModal({ isOpen: false, messageId: '', amount: 0, description: '' });
   };
 
   const toggleAudio = (messageId: string, audioUrl: string) => {
@@ -405,6 +407,17 @@ export default function MessageThread({
             )}
           </DialogContent>
         </Dialog>
+
+        {/* Payment Modal */}
+        <PaymentModal
+          isOpen={paymentModal.isOpen}
+          onClose={() => setPaymentModal({ isOpen: false, messageId: '', amount: 0, description: '' })}
+          amount={paymentModal.amount}
+          description={paymentModal.description}
+          creatorId={otherUser.id}
+          chatId={conversationId}
+          onPaymentSuccess={handlePaymentSuccess}
+        />
       </CardContent>
     </Card>
   );
