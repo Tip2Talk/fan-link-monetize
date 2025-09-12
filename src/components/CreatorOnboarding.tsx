@@ -13,7 +13,10 @@ import {
   CheckCircle, 
   Upload,
   DollarSign,
-  Star
+  Star,
+  Instagram,
+  Plus,
+  Trash2
 } from "lucide-react";
 
 interface OnboardingStep {
@@ -57,11 +60,36 @@ export function CreatorOnboarding() {
     username: "",
     bio: "",
     avatar: "",
-    tipGoal: ""
+    tipGoal: "",
+    instagram: "",
+    socialLinks: [{ platform: "", url: "" }]
   });
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSocialLinkChange = (index: number, field: 'platform' | 'url', value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      socialLinks: prev.socialLinks.map((link, i) => 
+        i === index ? { ...link, [field]: value } : link
+      )
+    }));
+  };
+
+  const addSocialLink = () => {
+    setFormData(prev => ({
+      ...prev,
+      socialLinks: [...prev.socialLinks, { platform: "", url: "" }]
+    }));
+  };
+
+  const removeSocialLink = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      socialLinks: prev.socialLinks.filter((_, i) => i !== index)
+    }));
   };
 
   const handleNext = () => {
@@ -134,6 +162,75 @@ export function CreatorOnboarding() {
                     placeholder="1000"
                     className="pl-10"
                   />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="instagram">Instagram Profile</Label>
+                <div className="relative">
+                  <Instagram className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    id="instagram"
+                    value={formData.instagram}
+                    onChange={(e) => handleInputChange("instagram", e.target.value)}
+                    placeholder="@yourusername or full URL"
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium">Additional Social Links</Label>
+                <div className="space-y-3 mt-2">
+                  {formData.socialLinks.map((link, index) => (
+                    <div key={index} className="flex gap-2">
+                      <select
+                        value={link.platform}
+                        onChange={(e) => handleSocialLinkChange(index, 'platform', e.target.value)}
+                        className="px-3 py-2 border rounded-md text-sm min-w-[120px]"
+                      >
+                        <option value="">Platform</option>
+                        <option value="twitter">Twitter/X</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="onlyfans">OnlyFans</option>
+                        <option value="amazon">Amazon</option>
+                        <option value="email">Email</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="website">Website</option>
+                      </select>
+                      <Input
+                        value={link.url}
+                        onChange={(e) => handleSocialLinkChange(index, 'url', e.target.value)}
+                        placeholder="URL or handle"
+                        className="flex-1"
+                      />
+                      {formData.socialLinks.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          onClick={() => removeSocialLink(index)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                  
+                  {formData.socialLinks.length < 5 && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={addSocialLink}
+                      className="w-full mt-2"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Another Link
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

@@ -25,7 +25,13 @@ const mockData = {
     displayName: "Alex Rivera",
     avatar: "/placeholder.svg",
     verified: true,
-    followerCount: 24500
+    followerCount: 24500,
+    instagram: "@alexrivera",
+    socialLinks: [
+      { platform: "youtube", url: "alexrivera" },
+      { platform: "twitter", url: "alexrivera" },
+      { platform: "tiktok", url: "@alexrivera" }
+    ]
   },
   stats: {
     totalEarnings: 2850,

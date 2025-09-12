@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import SocialLinks from "./SocialLinks";
 import { 
   DollarSign, 
   MessageCircle, 
@@ -25,6 +26,11 @@ interface CreatorProfileProps {
     verified: boolean;
     tipGoal?: number;
     tipReceived?: number;
+    instagram?: string;
+    socialLinks?: Array<{
+      platform: string;
+      url: string;
+    }>;
   };
 }
 
@@ -68,7 +74,14 @@ export function CreatorProfile({ creator }: CreatorProfileProps) {
             </div>
           </div>
           
-          <p className="text-sm opacity-90 mb-6 leading-relaxed">{creator.bio}</p>
+          <p className="text-sm opacity-90 mb-4 leading-relaxed">{creator.bio}</p>
+          
+          {/* Social Links */}
+          <SocialLinks 
+            instagram={creator.instagram}
+            socialLinks={creator.socialLinks}
+            className="mb-6"
+          />
           
           {/* Tip Progress */}
           {creator.tipGoal && (
