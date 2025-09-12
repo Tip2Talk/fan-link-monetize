@@ -231,9 +231,9 @@ const Index = () => {
             <Button 
               variant="outline" 
               size="lg"
-              onClick={() => window.open('https://tip2talk.com/hello/dashboard', '_blank')}
+              onClick={() => window.location.href = '/dashboard'}
             >
-              View Live Dashboard
+              View User Dashboard
             </Button>
           </div>
         </div>
