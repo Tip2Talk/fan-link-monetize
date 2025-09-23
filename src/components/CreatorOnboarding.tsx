@@ -16,7 +16,8 @@ import {
   Star,
   Instagram,
   Plus,
-  Trash2
+  Trash2,
+  Video
 } from "lucide-react";
 
 interface OnboardingStep {
@@ -62,11 +63,35 @@ export function CreatorOnboarding() {
     avatar: "",
     tipGoal: "",
     instagram: "",
+    videoLinks: [{ platform: "", url: "" }],
     socialLinks: [{ platform: "", url: "" }]
   });
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleVideoLinkChange = (index: number, field: 'platform' | 'url', value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      videoLinks: prev.videoLinks.map((link, i) => 
+        i === index ? { ...link, [field]: value } : link
+      )
+    }));
+  };
+
+  const addVideoLink = () => {
+    setFormData(prev => ({
+      ...prev,
+      videoLinks: [...prev.videoLinks, { platform: "", url: "" }]
+    }));
+  };
+
+  const removeVideoLink = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      videoLinks: prev.videoLinks.filter((_, i) => i !== index)
+    }));
   };
 
   const handleSocialLinkChange = (index: number, field: 'platform' | 'url', value: string) => {
@@ -176,6 +201,57 @@ export function CreatorOnboarding() {
                     placeholder="@yourusername or full URL"
                     className="pl-10"
                   />
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium">Video Profile Link</Label>
+                <div className="space-y-3 mt-2">
+                  {formData.videoLinks.map((link, index) => (
+                    <div key={index} className="flex gap-2">
+                      <div className="relative">
+                        <Video className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <select
+                          value={link.platform}
+                          onChange={(e) => handleVideoLinkChange(index, 'platform', e.target.value)}
+                          className="px-3 py-2 pl-10 border rounded-md text-sm min-w-[120px]"
+                        >
+                          <option value="">Platform</option>
+                          <option value="youtube">YouTube</option>
+                          <option value="vimeo">Vimeo</option>
+                        </select>
+                      </div>
+                      <Input
+                        value={link.url}
+                        onChange={(e) => handleVideoLinkChange(index, 'url', e.target.value)}
+                        placeholder="Video URL"
+                        className="flex-1"
+                      />
+                      {formData.videoLinks.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          onClick={() => removeVideoLink(index)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                  
+                  {formData.videoLinks.length < 3 && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={addVideoLink}
+                      className="w-full mt-2"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Video Link
+                    </Button>
+                  )}
                 </div>
               </div>
 
